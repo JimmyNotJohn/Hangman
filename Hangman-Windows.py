@@ -11,6 +11,9 @@ word_list.append("pseudopseudohypoparathyroidism")
 word_list.append("floccinaucinihilipilification")
 word_list.append("aequeosalinocalcalinoceraceoaluminosocupreovitriolic")
 
+fruitsList = ["apple", "banana", "orange"]
+colorsList = ["red", "yellow", "orange"]
+
 def reset():
   os.system("cls")
   if crazy != "":
@@ -28,6 +31,7 @@ def reset():
 while True:
   hidden = ""
   while True:
+    print("Welcome to Hangman!\n")
     hard = input(
         "Do you want to play easy, normal, hard, extreme, or impossible mode?\n> "
     )
@@ -58,7 +62,7 @@ while True:
     elif hard.lower().strip() == "impossible":
       crazy = "Ultimate"
       difficulty = 4
-      lives = 1
+      lives = 2
       break
 
   crazy_saucer = []
@@ -78,7 +82,7 @@ while True:
 
   answer = random.choice(crazy_saucer)
   picked = []
-  hidden = "_" * len(answer)
+  hidden = "".join([i if i in picked else "_" if i != " " else " " for i in answer])
 
   if crazy != "":
     print(
@@ -93,6 +97,7 @@ while True:
   print()
   while True:
     guess = input("Guess a letter:\n> ")
+    guess = guess.lower()
     if guess == answer:
       print("Correct!")
       print()
@@ -101,6 +106,8 @@ while True:
         print(f"You won with {lives} life left!")
       else:
         print(f"You won with {lives} lives left!")
+      time.sleep(len(answer) / 20 + 2)
+      os.system("cls")
       break
     if guess in picked:
       print()
@@ -109,35 +116,36 @@ while True:
       reset()
     else:
       picked.append(guess)
-      if guess == answer:
-        print("Correct!")
+      if guess in answer:
+        hidden = "".join([i if i in picked else "_" if i != " " else " " for i in answer])
         print()
+        print("Correct!")
         time.sleep(1)
-        if lives == 1:
-          print(f"You won with {lives} life left!")
-        else:
-          print(f"You won with {lives} lives left!")
-        os.system("cls")  # Clear the screen before breaking
-        break
+        reset()
+        if "_" not in hidden:
+          print(
+              f"You won with {lives} {'life' if lives == 1 else 'lives'} left!"
+          )
+          time.sleep(len(answer) / 20 + 2)
+          os.system("cls")
+          break
       elif guess not in answer and lives != 0:
         lives -= 1
         if lives != 0:
           print()
           print(f"{guess.capitalize()} is incorrect.")
           print(f"You have {lives} {'life' if lives == 1 else 'lives'} left.")
-          time.sleep(2)
-          os.system("cls")  # Clear the screen before resetting
+          time.sleep(1)
           reset()
         else:
           print()
           print(f"You ran out of lives. The word was {answer}.")
-          time.sleep(2)
-          os.system("cls")  # Clear the screen before breaking
+          time.sleep(len(answer) / 20 + 1)
+          os.system("cls")
           break
       else:
         print()
         print(f"You ran out of lives. The word was {answer}.")
-        time.sleep(2)
+        time.sleep(len(answer) / 20 + 1)
         os.system("cls")
         break
-      
