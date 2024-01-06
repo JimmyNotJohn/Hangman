@@ -10,10 +10,8 @@ word_list.append("hippopotomonstrosesquippedaliophobia")
 word_list.append("pseudopseudohypoparathyroidism")
 word_list.append("floccinaucinihilipilification")
 word_list.append("aequeosalinocalcalinoceraceoaluminosocupreovitriolic")
-
-fruitsList = ["apple", "banana", "orange"]
-colorsList = ["red", "yellow", "orange"]
-
+picked = []
+valid = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 def reset():
   os.system("clear")
   if crazy != "":
@@ -25,8 +23,9 @@ def reset():
         "Welcome to Hangman! Try to guess the word before you run out of guesses."
     )
   print()
-  print(hidden)
-  print()
+  print("Guessed:", ", ".join(sorted(picked)), "\n")
+  
+  print(hidden, "\n")
 
 while True:
   hidden = ""
@@ -93,8 +92,8 @@ while True:
         "Welcome to Hangman! Try to guess the word before you run out of guesses."
     )
   print()
-  print(hidden)
-  print()
+  print("Guessed:", ", ".join(sorted(picked)), "\n")
+  print(hidden, "\n")
   while True:
     guess = input("Guess a letter:\n> ")
     guess = guess.lower()
